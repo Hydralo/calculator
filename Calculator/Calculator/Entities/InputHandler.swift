@@ -11,39 +11,58 @@ import Foundation
 struct InputHandler {
     private var dashboard = ""
     private var userIsPrinting = false
+    private var isPositive = true
 }
 
 extension InputHandler {
-    mutating func digitAppend(_ buttonLabel: String) {
+    mutating func digitAppend(_ buttonLabel: String) -> String {
         if userIsPrinting {
             if buttonLabel == "0" && dashboard == "0" {
-                return
+                return returnDashboardWithSign()
             } else {
                 dashboard += "\(buttonLabel)"
             }
         } else {
-            dashboard = "\(buttonLabel)"
+            dashboard += "\(buttonLabel)"
             userIsPrinting = true
         }
-        print("\(dashboard)")
+        return returnDashboardWithSign()
     }
     
-    mutating func dotAppend()  {
+    mutating func dotAppend() -> String {
         if userIsPrinting && !dashboard.contains(".") {
             dashboard += "."
         } else if dashboard.contains(".") {
-            return
+            return dashboard
         } else {
             dashboard = "0."
             userIsPrinting = true
         }
-        print("\(dashboard)")
+        return returnDashboardWithSign()
+    }
+    
+    mutating func minusPlus() -> String {
+        isPositive = !isPositive
+        return returnDashboardWithSign()
     }
     
     mutating func clearAll() {
         dashboard = ""
+        isPositive = true
         if userIsPrinting {
             userIsPrinting = false
+        }
+    }
+    
+    private func returnDashboardWithSign() -> String {
+        if isPositive && userIsPrinting {
+            return dashboard
+        } else if isPositive && !userIsPrinting {
+            return "0"
+        } else if !isPositive && userIsPrinting {
+            return "-" + dashboard
+        } else {
+            return "-0"
         }
     }
 }

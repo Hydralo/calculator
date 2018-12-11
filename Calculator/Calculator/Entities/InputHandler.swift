@@ -54,15 +54,20 @@ extension InputHandler {
         }
     }
     
-    private func returnDashboardWithSign() -> String {
-        if isPositive && userIsPrinting {
-            return dashboard
-        } else if isPositive && !userIsPrinting {
-            return "0"
-        } else if !isPositive && userIsPrinting {
-            return "-" + dashboard
+    private mutating func returnDashboardWithSign() -> String {
+        if dashboard.count < 10 {
+            if isPositive && userIsPrinting {
+                return dashboard
+            } else if isPositive && !userIsPrinting {
+                return "0"
+            } else if !isPositive && userIsPrinting {
+                return "-" + dashboard
+            } else {
+                return "-0"
+            }
         } else {
-            return "-0"
+            dashboard.removeSubrange(dashboard.index(dashboard.startIndex, offsetBy: 9)...)
+            return dashboard
         }
     }
 }

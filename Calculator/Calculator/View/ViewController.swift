@@ -59,21 +59,7 @@ class ViewController: UIViewController {
         }
     }
     
-// S - слишком много задач у метода
     func updateLable(text: String) {
-        let charactersCount = LabelController.charactersCountWithKomma(text: text)
-        switch charactersCount {
-        case 6:
-            label.font = label.font.withSize(68)
-        case 7:
-            label.font = label.font.withSize(64)
-        case 8:
-            label.font = label.font.withSize(60)
-        case _ where charactersCount >= 9:
-            label.font = label.font.withSize(56)
-        default:
-            label.font = label.font.withSize(72)
-        }
         var finalText = text
         if(text != "0.0" && text.suffix(2) == ".0") {
             finalText = String(text.prefix(text.count-2))

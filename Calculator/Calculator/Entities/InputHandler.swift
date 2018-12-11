@@ -67,7 +67,11 @@ extension InputHandler {
             }
         } else {
             dashboard.removeSubrange(dashboard.index(dashboard.startIndex, offsetBy: 9)...)
-            return dashboard
+            if isPositive{
+                return dashboard
+            } else {
+                return "-" + dashboard
+            }
         }
     }
 }

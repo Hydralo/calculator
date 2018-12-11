@@ -24,6 +24,7 @@
 		60AFF74421BBE7A200022B1C /* PresenterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AFF74321BBE7A200022B1C /* PresenterDelegate.swift */; };
 		60AFF74621BBE9DE00022B1C /* InteractorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AFF74521BBE9DE00022B1C /* InteractorDelegate.swift */; };
 		60AFF74821BBEAA000022B1C /* ButtonControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AFF74721BBEAA000022B1C /* ButtonControllerDelegate.swift */; };
+		787E741321BEA1AF00FD8416 /* InputHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787E741221BEA1AF00FD8416 /* InputHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		60AFF74321BBE7A200022B1C /* PresenterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterDelegate.swift; sourceTree = "<group>"; };
 		60AFF74521BBE9DE00022B1C /* InteractorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorDelegate.swift; sourceTree = "<group>"; };
 		60AFF74721BBEAA000022B1C /* ButtonControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonControllerDelegate.swift; sourceTree = "<group>"; };
+		787E741221BEA1AF00FD8416 /* InputHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,7 +121,6 @@
 			children = (
 				60AFF72F21B4507A00022B1C /* Calculator */,
 				60AFF70121B2C59F00022B1C /* AppDelegate.swift */,
-				60AFF70521B2C59F00022B1C /* Main.storyboard */,
 				60AFF70821B2C5A100022B1C /* Assets.xcassets */,
 				60AFF70A21B2C5A100022B1C /* LaunchScreen.storyboard */,
 				60AFF70D21B2C5A100022B1C /* Info.plist */,
@@ -149,8 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				60AFF73521B453AC00022B1C /* View */,
-				60AFF73421B453A700022B1C /* Interactor */,
 				60AFF73321B453A100022B1C /* Presenter */,
+				60AFF73421B453A700022B1C /* Interactor */,
 				60AFF73021B4508100022B1C /* Entities */,
 			);
 			path = Calculator;
@@ -161,6 +162,7 @@
 			children = (
 				60AFF74221B9C78D00022B1C /* Button */,
 				60AFF73121B4508F00022B1C /* Calculator.swift */,
+				787E741221BEA1AF00FD8416 /* InputHandler.swift */,
 				60AFF73821B4541100022B1C /* LabelController.swift */,
 			);
 			path = Entities;
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				60AFF70321B2C59F00022B1C /* ViewController.swift */,
+				60AFF70521B2C59F00022B1C /* Main.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				60AFF70221B2C59F00022B1C /* AppDelegate.swift in Sources */,
 				60AFF73D21B97C0300022B1C /* Interactor.swift in Sources */,
 				60AFF73221B4508F00022B1C /* Calculator.swift in Sources */,
+				787E741321BEA1AF00FD8416 /* InputHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

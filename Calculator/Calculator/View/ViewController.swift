@@ -17,27 +17,31 @@ class ViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
     
     private var presenter: Presenter!
-
+    
     // MARK: - IBActions
     
     @IBAction func buttonClick(_ sender: UIButton) {
         updateLable(text: presenter.buttonClick(tag: sender.tag))
     }
-    
-    // MARK: - Lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Нахера это здесь? должно при инициализации создаваться
-        presenter = Presenter(delegate: self)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        roundButtons()
-    }
-    
+}
     // MARK: - Functions
+
+extension ViewController {
+
+    func updateLable(text: String) {
+        var finalText = text
+        if text != "0.0" && text.suffix(2) == ".0" {
+            finalText = String(text.prefix(text.count-2))
+        } else if text == "0.0" {
+            finalText = "0"
+        }
+        label.text = finalText.replacingOccurrences(of: ".", with: ",")
+    }
+}
+
+// MARK: - Private functions
+
+extension ViewController {
     
     private func roundButtons() {
         var baseCornerRadius: CGFloat?
@@ -56,15 +60,24 @@ class ViewController: UIViewController {
                                              green: CGFloat((0xe12d30 & 0x00FF00) >> 8) / 255.0,
                                              blue: CGFloat(0xe12d30 & 0x0000FF) / 255.0,
                                              alpha: CGFloat(1.0))
+            
         }
     }
+}
+
+// MARK: - Lifecycle
+
+extension ViewController {
     
-    func updateLable(text: String) {
-        var finalText = text
-        if(text != "0.0" && text.suffix(2) == ".0") {
-            finalText = String(text.prefix(text.count-2))
-        }
-        label.text = finalText.replacingOccurrences(of: ".", with: ",")
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Нахера это здесь? должно при инициализации создаваться
+        presenter = Presenter(delegate: self)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        roundButtons()
     }
 }
 
@@ -91,4 +104,6 @@ extension ViewController: PresenterDelegate {
                                              alpha: CGFloat(1.0))
         }
     }
+    
 }
+

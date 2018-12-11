@@ -87,7 +87,7 @@ class Calculator {
         }
     }
     
-    // MARK: Arithmetic
+    // MARK: Arithmetic logic
     
     func unary() -> String {
         guard let numInDouble = Double(inputHandler.minusPlus()) else {

@@ -11,6 +11,7 @@ import Foundation
 class ButtonController {
     private var calculator: Calculator
     weak var delegate: ButtonControllerDelegate?
+    private var inputHandler = InputHandler()
     
     init() {
         calculator = Calculator()
@@ -29,11 +30,14 @@ class ButtonController {
             guard let num = button.num else {
                 return ""
             }
+            inputHandler.digitAppend(num)
             return calculator.insertNumber(num: num)
         case .komma:
+            inputHandler.dotAppend()
             return calculator.insertKomma()
         case .ac:
             delegate?.cancelHighlightButtons()
+            inputHandler.clearAll()
             return calculator.ac()
         case .addition:
             delegate?.cancelHighlightButtons()

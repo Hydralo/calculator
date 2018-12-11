@@ -9,24 +9,35 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    // MARK: - Outlets
+    
     @IBOutlet weak var keyboardContainerLeadingLayoutConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var keyboardContainerTrailingLayoutConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var label: UILabel!
     
     private var presenter: Presenter!
+
+    // MARK: - IBActions
     
+    @IBAction func buttonClick(_ sender: UIButton) {
+        updateLable(text: presenter.buttonClick(tag: sender.tag))
+    }
+    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Нахера это здесь? должно при инициализации создаваться
         presenter = Presenter(delegate: self)
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         roundButtons()
     }
+    
+    // MARK: - Functions
     
     private func roundButtons() {
         var baseCornerRadius: CGFloat?
@@ -48,10 +59,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func buttonClick(_ sender: UIButton) {
-        updateLable(text: presenter.buttonClick(tag: sender.tag))
-    }
-    
+// S - слишком много задач у метода
     func updateLable(text: String) {
         let charactersCount = LabelController.charactersCountWithKomma(text: text)
         switch charactersCount {
@@ -72,15 +80,9 @@ class ViewController: UIViewController {
         }
         label.text = finalText.replacingOccurrences(of: ".", with: ",")
     }
-    
-    
-    //попробовать сделать еще одно view внутри subview , сделать нужные отступы и вертикал центр, и аспект ратио 4:5 тогда будут квадраты выходить, у квадратов убрать отсупы слева и справа
-    //или у текущей вьюхи сделать отсупы, и квадарты убрать отсутпы
-    //калькулятор готовый
-    // состояния калькулятора енум, ready, 1 число, 2 числа , и переходы между состояниями
-    //спроектировать калькулятор по ООП
-
 }
+
+// MARK: Buttons hightlighting. Implementation of PresenterDelegate protocol
 
 extension ViewController: PresenterDelegate {
     func highlightButton(tag: Int) {

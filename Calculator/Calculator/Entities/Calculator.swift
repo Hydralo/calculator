@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: Constants & Initializer
+
 enum CalculatorConditions {
     case firstNumberEnter
     case secondNumberEnter
@@ -24,47 +26,40 @@ enum CalculatorOperations {
 }
 
 class Calculator {
-    private var firstNumber: String
-    private var secondNumber: String
+    private var firstNumber: Double
+    private var secondNumber: Double
     private var condition: CalculatorConditions
     private var operation: CalculatorOperations
+    private var inputHandler = InputHandler()
     
     init() {
-        firstNumber = "0"
-        secondNumber = "0"
+        firstNumber = 0
+        secondNumber = 0
         operation = CalculatorOperations.none
         condition = CalculatorConditions.ready
     }
     
+    // MARK: - Functions
+    // MARK: Input handling
+    
     func insertNumber(num: String) -> String {
+        guard let numInDouble = Double(inputHandler.digitAppend(num)) else {
+            return "Input handling error"
+        }
         switch condition {
         case .firstNumberEnter:
-            if(LabelController.charactersCountWithKomma(text: firstNumber) < 9) {
-                if(firstNumber == "0") {
-                    firstNumber = num
-                }
-                else {
-                    firstNumber += num
-                }
-            }
-            return firstNumber
+            firstNumber = numInDouble
+            return "\(firstNumber)"
         case .secondNumberEnter:
-            if(LabelController.charactersCountWithKomma(text: secondNumber) < 9) {
-                if(secondNumber == "0") {
-                    secondNumber = num
-                }
-                else {
-                    secondNumber += num
-                }
-            }
-            return secondNumber
+            secondNumber = numInDouble
+            return "\(secondNumber)"
         case .ready:
-            if(num == "0") {
-                return num
+            if(numInDouble == 0) {
+                return "\(numInDouble)"
             }
-            firstNumber = num
+            firstNumber = numInDouble
             condition = .firstNumberEnter
-            return firstNumber
+            return "\(firstNumber)"
         case .equalResult:
             _ = ac()
             return insertNumber(num: num)
@@ -72,53 +67,46 @@ class Calculator {
     }
     
     func insertKomma() -> String {
+        guard let numInDouble = Double(inputHandler.dotAppend()) else {
+            return "Input handling error"
+        }
         switch condition {
         case .firstNumberEnter:
-            if(firstNumber.firstIndex(of: ".") == nil && firstNumber.count < 9) {
-                firstNumber += "."
-            }
-            return firstNumber
+                firstNumber = numInDouble
+                return "\(firstNumber)"
         case .secondNumberEnter:
-            if(secondNumber.firstIndex(of: ".") == nil && secondNumber.count < 9) {
-                secondNumber += "."
-            }
-            return secondNumber
+                secondNumber = numInDouble
+                return "\(secondNumber)"
         case .ready:
-            firstNumber = "0."
+            firstNumber = 0
             condition = .firstNumberEnter
-            return firstNumber
+            return "\(firstNumber)"
         case .equalResult:
             _ = ac()
-            return insertKomma()
+            return "\(firstNumber)"
         }
     }
     
+    // MARK: Arithmetic
+    
     func unary() -> String {
+        guard let numInDouble = Double(inputHandler.minusPlus()) else {
+            return "Input handling error"
+        }
         switch condition {
         case .firstNumberEnter:
-            if(firstNumber.prefix(1) != "-"){
-                if(firstNumber != "0") {
-                    firstNumber = "-" + firstNumber
-                }
-            } else {
-                firstNumber = firstNumber.replacingOccurrences(of: "-", with: "")
-            }
-            return firstNumber
+            firstNumber = numInDouble
+            return "\(firstNumber)"
         case .secondNumberEnter:
-            if(secondNumber.prefix(1) != "-"){
-                if(secondNumber != "0") {
-                    secondNumber = "-" + secondNumber
-                }
-            } else {
-                secondNumber = secondNumber.replacingOccurrences(of: "-", with: "")
-            }
-            return secondNumber
+            secondNumber = numInDouble
+            return "\(secondNumber)"
         case .ready:
             condition = .firstNumberEnter
-            return firstNumber
+            firstNumber = numInDouble
+            return "\(firstNumber)"
         case .equalResult:
-            condition = .firstNumberEnter
-            secondNumber = "0"
+            changeState(toCondition: .firstNumberEnter)
+            secondNumber = 0
             return unary()
         }
     }
@@ -126,75 +114,75 @@ class Calculator {
     func procent() -> String {
         switch condition {
         case .firstNumberEnter:
-            secondNumber = "100"
+            secondNumber = 100
             operation = .division
             return equal()
         case .secondNumberEnter:
             firstNumber = secondNumber
-            secondNumber = "100"
+            secondNumber = 100
             operation = .division
             return equal()
         case .ready:
-            return firstNumber
+            return "\(firstNumber)"
         case .equalResult:
-            condition = .firstNumberEnter
+            changeState(toCondition: .firstNumberEnter)
             return procent()
         }
     }
     
     func ac() -> String {
-        firstNumber = "0"
-        secondNumber = "0"
+        firstNumber = 0
+        secondNumber = 0
         operation = CalculatorOperations.none
-        condition = CalculatorConditions.ready
-        return firstNumber
+        changeState(toCondition: .ready)
+        return "\(firstNumber)"
     }
     
     func operate(type: CalculatorOperations) -> String {
         operation = type
         switch condition {
         case .firstNumberEnter:
-            condition = .secondNumberEnter
-            return firstNumber
+            changeState(toCondition: .secondNumberEnter)
+            return "\(firstNumber)"
         case .secondNumberEnter:
             let result = equal()
-            condition = .secondNumberEnter
+            changeState(toCondition: .secondNumberEnter)
             return result
         case .ready:
-            return firstNumber
+            return "\(firstNumber)"
         case .equalResult:
-            condition = .secondNumberEnter
-            secondNumber = "0"
-            return firstNumber
+            changeState(toCondition: .secondNumberEnter)
+            secondNumber = 0
+            return "\(firstNumber)"
         }
     }
     
     func equal() -> String {
-        guard let firstNumDouble = Double(firstNumber) else {
-            return "Ошибка"
-        }
-        guard let secondNumDouble = Double(secondNumber) else {
-            return "Ошибка"
-        }
         switch operation {
         case .none:
-            return firstNumber
+            return "\(firstNumber)"
         case .multiplication:
-            firstNumber = "\(firstNumDouble * secondNumDouble)"
-            condition = .equalResult
+            firstNumber = firstNumber * secondNumber
+            changeState(toCondition: .equalResult)
         case .addition:
-            firstNumber = "\(firstNumDouble + secondNumDouble)"
-            condition = .equalResult
+            firstNumber = firstNumber + secondNumber
+            changeState(toCondition: .equalResult)
         case .division:
-            firstNumber = "\(firstNumDouble / secondNumDouble)"
-            condition = .equalResult
+            firstNumber = firstNumber / secondNumber
+            changeState(toCondition: .equalResult)
         case .subtraction:
-            firstNumber = "\(firstNumDouble - secondNumDouble)"
-            condition = .equalResult
+            firstNumber = firstNumber - secondNumber
+            changeState(toCondition: .equalResult)
         }
-        if(firstNumber == "0.0") {
-            firstNumber = "0"
-        }
-        return firstNumber
+        return "\(firstNumber)"
+    }
+}
+
+// MARK: - Helpers
+
+extension Calculator {
+    func changeState(toCondition state: CalculatorConditions) {
+        condition = state
+        inputHandler.clearAll()
     }
 }

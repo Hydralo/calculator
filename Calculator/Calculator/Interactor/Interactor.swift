@@ -23,6 +23,9 @@ class Interactor {
     }
 }
 
+// MARK: - Highlight buttons
+// TODO: Убрать и переделать, чтобы подсветка была связана с состоянием калькулятора
+
 extension Interactor: ButtonControllerDelegate {
     func cancelHighlightButtons() {
         delegate?.cancelHighlightButtons()

@@ -8,6 +8,8 @@
 
 import Foundation
 
+// Презентер не знает про view. Нужно добавить управление.
+
 class Presenter {
     private var interactor: Interactor!
     weak var delegate: PresenterDelegate?
@@ -21,6 +23,9 @@ class Presenter {
         return interactor.buttonClick(tag: tag)
     }
 }
+
+// MARK: - Highlight buttons
+// TODO: Убрать и переделать, чтобы подсветка была связана с состоянием калькулятора
 
 extension Presenter: InteractorDelegate {
     func cancelHighlightButtons() {

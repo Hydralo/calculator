@@ -14,6 +14,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var keyboardContainerLeadingLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var keyboardContainerTrailingLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerWidthLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerHeightLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var label: UILabel!
     
     private var presenter: Presenter!
@@ -34,6 +36,10 @@ class ViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        let safeAreaWidth = super.view.safeAreaLayoutGuide.layoutFrame.width
+        containerWidthLayoutConstraint.constant = safeAreaWidth - 7
+        containerHeightLayoutConstraint.constant = containerWidthLayoutConstraint.constant * 1.2
+        view.layoutIfNeeded()
         roundButtons()
     }
     

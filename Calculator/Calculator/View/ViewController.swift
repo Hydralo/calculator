@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let safeAreaWidth = super.view.safeAreaLayoutGuide.layoutFrame.width
-        containerWidthLayoutConstraint.constant = safeAreaWidth - 7
+        containerWidthLayoutConstraint.constant = safeAreaWidth - 14
         containerHeightLayoutConstraint.constant = containerWidthLayoutConstraint.constant * 1.2
         view.layoutIfNeeded()
         roundButtons()
@@ -81,9 +81,9 @@ class ViewController: UIViewController {
             label.font = label.font.withSize(72)
         }
         var finalText = text
-        if(text != "0.0" && text.suffix(2) == ".0") {
-            finalText = String(text.prefix(text.count-2))
-        }
+//        if(text != "0.0" && text.suffix(2) == ".0") {
+//            finalText = String(text.prefix(text.count-2))
+//        }
         label.text = finalText.replacingOccurrences(of: ".", with: ",")
     }
 }

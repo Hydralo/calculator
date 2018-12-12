@@ -30,10 +30,10 @@ class ButtonController {
             guard let num = button.num else {
                 return ""
             }
-            inputHandler.digitAppend(num)
+            _ = inputHandler.digitAppend(num)
             return calculator.insertNumber(num: num)
         case .komma:
-            inputHandler.dotAppend()
+            _ = inputHandler.dotAppend()
             return calculator.insertKomma()
         case .ac:
             delegate?.cancelHighlightButtons()

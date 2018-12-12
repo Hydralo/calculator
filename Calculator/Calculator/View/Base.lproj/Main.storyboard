@@ -172,7 +172,7 @@
                                                         <rect key="frame" x="7" y="7" width="62.5" height="62.5"/>
                                                         <color key="backgroundColor" red="1" green="0.18881190910000001" blue="0.17370133900000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                        <state key="normal" title="X">
+                                                        <state key="normal" title="x">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>

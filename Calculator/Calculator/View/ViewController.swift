@@ -72,7 +72,7 @@ extension ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Нахера это здесь? должно при инициализации создаваться
-        presenter = Presenter(delegate: self)
+        presenter = Presenter(viewController: self)
     }
     
     override func viewWillLayoutSubviews() {
@@ -89,7 +89,7 @@ extension ViewController: PresenterDelegate {
             return
         }
         button.backgroundColor = UIColor(red: CGFloat((0xb10003 & 0xFF0000) >> 16) / 255.0,
-                                         green: CGFloat((0xb10003 & 0x00FF00) >> 8) / 255.0,
+                                         green: CGFloat((0xb10003 & 0x00FF00) >> 8) / 100.0,
                                          blue: CGFloat(0xb10003 & 0x0000FF) / 255.0,
                                          alpha: CGFloat(1.0))
     }

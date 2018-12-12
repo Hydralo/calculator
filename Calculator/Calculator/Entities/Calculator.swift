@@ -131,11 +131,18 @@ class Calculator {
     }
     
     func ac() -> String {
-        firstNumber = 0
-        secondNumber = 0
-        operation = CalculatorOperations.none
-        changeState(toCondition: .ready)
-        return "\(firstNumber)"
+        inputHandler.clearAll()
+        if condition == .secondNumberEnter {
+            secondNumber = 0
+            inputHandler.clearAll()
+            return "\(secondNumber)"
+        } else {
+            firstNumber = 0
+            secondNumber = 0
+            operation = CalculatorOperations.none
+            changeState(toCondition: .ready)
+            return "\(firstNumber)"
+        }
     }
     
     func operate(type: CalculatorOperations) -> String {
@@ -184,5 +191,8 @@ extension Calculator {
     func changeState(toCondition state: CalculatorConditions) {
         condition = state
         inputHandler.clearAll()
+    }
+    func currentState() -> (CalculatorConditions, CalculatorOperations) {
+        return (condition, operation)
     }
 }

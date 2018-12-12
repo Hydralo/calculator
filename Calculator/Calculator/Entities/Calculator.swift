@@ -26,8 +26,8 @@ enum CalculatorOperations {
 }
 
 class Calculator {
-    private var firstNumber: Double
-    private var secondNumber: Double
+    private var firstNumber: Decimal
+    private var secondNumber: Decimal
     private var condition: CalculatorConditions
     private var operation: CalculatorOperations
     private var inputHandler = InputHandler()
@@ -46,18 +46,19 @@ class Calculator {
         guard let numInDouble = Double(inputHandler.digitAppend(num)) else {
             return "Input handling error"
         }
+        let decimalNumber = Decimal(numInDouble)
         switch condition {
         case .firstNumberEnter:
-            firstNumber = numInDouble
+            firstNumber = decimalNumber
             return "\(firstNumber)"
         case .secondNumberEnter:
-            secondNumber = numInDouble
+            secondNumber = decimalNumber
             return "\(secondNumber)"
         case .ready:
-            if(numInDouble == 0) {
-                return "\(numInDouble)"
+            if(decimalNumber == 0) {
+                return "\(decimalNumber)"
             }
-            firstNumber = numInDouble
+            firstNumber = decimalNumber
             condition = .firstNumberEnter
             return "\(firstNumber)"
         case .equalResult:
@@ -70,12 +71,13 @@ class Calculator {
         guard let numInDouble = Double(inputHandler.dotAppend()) else {
             return "Input handling error"
         }
+        let decimalNumber = Decimal(numInDouble)
         switch condition {
         case .firstNumberEnter:
-                firstNumber = numInDouble
+                firstNumber = decimalNumber
                 return "\(firstNumber)"
         case .secondNumberEnter:
-                secondNumber = numInDouble
+                secondNumber = decimalNumber
                 return "\(secondNumber)"
         case .ready:
             firstNumber = 0
@@ -93,16 +95,17 @@ class Calculator {
         guard let numInDouble = Double(inputHandler.minusPlus()) else {
             return "Input handling error"
         }
+        let decimalNumber = Decimal(numInDouble)
         switch condition {
         case .firstNumberEnter:
-            firstNumber = numInDouble
+            firstNumber = decimalNumber
             return "\(firstNumber)"
         case .secondNumberEnter:
-            secondNumber = numInDouble
+            secondNumber = decimalNumber
             return "\(secondNumber)"
         case .ready:
             condition = .firstNumberEnter
-            firstNumber = numInDouble
+            firstNumber = decimalNumber
             return "\(firstNumber)"
         case .equalResult:
             changeState(toCondition: .firstNumberEnter)

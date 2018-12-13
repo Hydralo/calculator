@@ -8,9 +8,7 @@
 
 import Foundation
 
-// TODO: Удалить нахуй
-
 protocol PresenterDelegate: class {
-    func highlightButton(tag: Int)
+    func highlightButton(binaryOperationType: BinaryArithmeticOperation)
     func cancelHighlightButtons()
 }

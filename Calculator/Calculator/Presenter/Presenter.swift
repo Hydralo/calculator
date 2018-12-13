@@ -12,7 +12,7 @@ import Foundation
 
 class Presenter {
     private var interactor: Interactor!
-    weak var viewController: ViewController?
+    private weak var viewController: ViewController?
     
     init(viewController: ViewController) {
         interactor = Interactor()
@@ -20,33 +20,54 @@ class Presenter {
     }
     
     func buttonClick(tag: Int) -> String {
-        let dashboard = interactor.buttonClick(tag: tag)
-        hightlighter(buttonTag: tag)
-        return dashboard
+        return interactor.buttonClick(tag: tag)
     }
 }
 
 // MARK: - Private functions
 
 extension Presenter {
-    func hightlighter(buttonTag: Int) {
+    func highlightButton(binaryOperation: BinaryArithmeticOperation) {
         let calculatorState = interactor.currentCalculatorState()
         guard let view = viewController else {
             return
         }
-        if calculatorState.0 == .firstNumberEnter || calculatorState.0 == .secondNumberEnter {
-            switch calculatorState.1 {
-            case .addition:
-                view.highlightButton(tag: 16)
-            case .subtraction:
-                view.highlightButton(tag: 12)
-            case .division:
-                view.highlightButton(tag: 4)
-            case .multiplication:
-                view.highlightButton(tag: 8)
-            case .none:
+        if calculatorState.0 != .equalResult {
+            if calculatorState.1 == .none || binaryOperation == .equal{
                 view.cancelHighlightButtons()
+            } else {
+                view.highlightButton(binaryOperationType: binaryOperation)
             }
         }
+    }
+    
+    func highlightingCheck()  {
+        let calculatorState = interactor.currentCalculatorState()
+        guard let view = viewController else {
+            return
+        }
+        if calculatorState.0 != .equalResult {
+            if calculatorState.1 == .none {
+                view.cancelHighlightButtons()
+            } else {
+                switch calculatorState.1 {
+                case .addition:
+                     view.highlightButton(binaryOperationType: .addition)
+                case .division:
+                    view.highlightButton(binaryOperationType: .division)
+                case .multiplication:
+                    view.highlightButton(binaryOperationType: .multiplication)
+                case .subtraction:
+                    view.highlightButton(binaryOperationType: .subtraction)
+                case .none:
+                     view.cancelHighlightButtons()
+                }
+               
+            }
+        }
+    }
+    
+    func cancelHightlightingButtons() {
+        viewController?.cancelHighlightButtons()
     }
 }

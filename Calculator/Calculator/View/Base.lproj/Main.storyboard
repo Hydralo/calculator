@@ -44,6 +44,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
+                                                            <action selector="allClearButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EHJ-AB-CYG"/>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="waH-Ip-e4x"/>
                                                         </connections>
                                                     </button>
@@ -80,8 +81,8 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l37-yW-ShS">
                                                 <rect key="frame" x="229.5" y="0.0" width="76.5" height="76.5"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CbE-kL-jig">
-                                                        <rect key="frame" x="7" y="7" width="62.5" height="62.5"/>
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CbE-kL-jig">
+                                                        <rect key="frame" x="6" y="6" width="62.5" height="62.5"/>
                                                         <color key="backgroundColor" red="1" green="0.18881190910000001" blue="0.17370133900000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                         <state key="normal" title="÷">
@@ -89,6 +90,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qaz-Ko-NTv"/>
+                                                            <action selector="operationButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c2R-74-yAu"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -133,6 +135,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oFf-uZ-ZYw"/>
+                                                            <action selector="digitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i38-Zd-UCJ"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -155,6 +158,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y83-ll-6aa"/>
+                                                            <action selector="digitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IMa-UU-rEO"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -177,6 +181,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SNt-44-YWi"/>
+                                                            <action selector="operationButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yuE-9E-nk5"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -199,6 +204,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tbf-dA-gE6"/>
+                                                            <action selector="digitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r55-hT-c9m"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -221,6 +227,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bMP-5z-8de"/>
+                                                            <action selector="digitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rj7-D6-7dL"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -243,6 +250,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VRx-Kr-dbh"/>
+                                                            <action selector="digitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fZP-UY-Lgs"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -265,6 +273,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mcO-Vv-Yu8"/>
+                                                            <action selector="operationButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t2j-39-EK0"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -287,6 +296,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ua4-bh-1pT"/>
+                                                            <action selector="digitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CgQ-tV-Dgr"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -309,6 +319,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8j8-Ae-zJa"/>
+                                                            <action selector="digitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0A3-XV-891"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -331,6 +342,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wcp-Lm-N9l"/>
+                                                            <action selector="digitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="riL-NS-YUK"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -354,6 +366,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0wA-4W-Lj9"/>
+                                                            <action selector="digitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9gU-ax-p9q"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -401,6 +414,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zw4-Hs-pSb"/>
+                                                            <action selector="operationButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ofg-XK-z9u"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -423,6 +437,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3jE-Yd-NU7"/>
+                                                            <action selector="digitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W7Z-vK-lA9"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -440,7 +455,7 @@
                                                         <rect key="frame" x="7" y="7" width="62.5" height="62.5"/>
                                                         <color key="backgroundColor" red="1" green="0.18881190910000001" blue="0.17370133900000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" secondItem="ZDq-zb-332" secondAttribute="height" id="g4I-Vh-ijo"/>
+                                                            <constraint firstAttribute="width" secondItem="ZDq-zb-332" secondAttribute="height" multiplier="1:1" id="HSc-ti-V7z"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                         <state key="normal" title="=">
@@ -448,6 +463,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="n3W-Kt-qcT"/>
+                                                            <action selector="operationButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Itm-2Z-rRz"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -561,6 +577,22 @@
                     </view>
                     <connections>
                         <outlet property="label" destination="QCe-pF-tlj" id="ACZ-Xc-LEJ"/>
+                        <outletCollection property="digitButtons" destination="U5Q-7T-23G" collectionClass="NSMutableArray" id="xk7-CX-wIn"/>
+                        <outletCollection property="digitButtons" destination="9rp-OR-1ij" collectionClass="NSMutableArray" id="g47-mk-b0d"/>
+                        <outletCollection property="digitButtons" destination="ya2-h4-f5N" collectionClass="NSMutableArray" id="Dgv-B3-GRY"/>
+                        <outletCollection property="digitButtons" destination="SHW-IJ-f1G" collectionClass="NSMutableArray" id="WP3-a2-gpN"/>
+                        <outletCollection property="digitButtons" destination="tka-Rd-bpc" collectionClass="NSMutableArray" id="J6D-OV-eWe"/>
+                        <outletCollection property="digitButtons" destination="Izc-5C-o0e" collectionClass="NSMutableArray" id="Etl-Sx-UNb"/>
+                        <outletCollection property="digitButtons" destination="Ahe-hp-aRj" collectionClass="NSMutableArray" id="pI6-GE-DA6"/>
+                        <outletCollection property="digitButtons" destination="1sn-9D-XxP" collectionClass="NSMutableArray" id="jZZ-Rq-4rA"/>
+                        <outletCollection property="digitButtons" destination="efb-pF-fPV" collectionClass="NSMutableArray" id="cg2-1t-mVM"/>
+                        <outletCollection property="digitButtons" destination="pDZ-G5-vsB" collectionClass="NSMutableArray" id="d72-ma-uHw"/>
+                        <outletCollection property="binaryOperationButtons" destination="4Ua-fh-QMt" collectionClass="NSMutableArray" id="c8w-tN-fTa"/>
+                        <outletCollection property="binaryOperationButtons" destination="6Zk-zR-i81" collectionClass="NSMutableArray" id="cOS-4R-Anu"/>
+                        <outletCollection property="binaryOperationButtons" destination="mbV-9Q-9sk" collectionClass="NSMutableArray" id="t1E-bb-LTl"/>
+                        <outletCollection property="binaryOperationButtons" destination="CbE-kL-jig" collectionClass="NSMutableArray" id="cUL-11-b8B"/>
+                        <outletCollection property="digitButtons" destination="CUy-98-ABf" collectionClass="NSMutableArray" id="HAS-Tb-t8t"/>
+                        <outletCollection property="binaryOperationButtons" destination="ZDq-zb-332" collectionClass="NSMutableArray" id="MWw-76-dGe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

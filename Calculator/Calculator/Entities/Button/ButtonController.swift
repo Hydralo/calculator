@@ -32,7 +32,6 @@ class ButtonController {
             _ = inputHandler.dotAppend()
             return calculator.insertKomma()
         case .ac:
-//            inputHandler.clearAll()
             return calculator.ac()
         case .addition:
             return calculator.operate(type: .addition)

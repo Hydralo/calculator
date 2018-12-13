@@ -131,7 +131,6 @@ class Calculator {
     }
     
     func ac() -> String {
-        inputHandler.clearAll()
         if condition == .secondNumberEnter {
             secondNumber = 0
             inputHandler.clearAll()

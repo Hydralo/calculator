@@ -509,6 +509,7 @@
                                             <constraint firstItem="efT-hx-79b" firstAttribute="width" secondItem="VRq-RU-FfH" secondAttribute="width" id="RyX-fD-qno"/>
                                             <constraint firstItem="XiU-rF-Cwm" firstAttribute="height" secondItem="UiC-jq-hLn" secondAttribute="height" id="V12-rE-4fe"/>
                                             <constraint firstItem="JkJ-lN-cTh" firstAttribute="leading" secondItem="gwJ-iD-Hs7" secondAttribute="trailing" id="VC5-TT-Usp"/>
+                                            <constraint firstAttribute="width" constant="306" id="WCm-Wh-2sb"/>
                                             <constraint firstItem="JkJ-lN-cTh" firstAttribute="width" secondItem="gwJ-iD-Hs7" secondAttribute="width" id="Wvy-lf-Zt0"/>
                                             <constraint firstItem="UiC-jq-hLn" firstAttribute="leading" secondItem="XiU-rF-Cwm" secondAttribute="trailing" id="Y79-KP-Ghr"/>
                                             <constraint firstItem="VRq-RU-FfH" firstAttribute="height" secondItem="efT-hx-79b" secondAttribute="height" id="YBz-zS-B7T"/>
@@ -540,6 +541,7 @@
                                             <constraint firstItem="HaJ-Aq-MiT" firstAttribute="trailing" secondItem="GXr-LU-aTK" secondAttribute="trailing" id="uKP-F6-7C5"/>
                                             <constraint firstAttribute="trailing" secondItem="l37-yW-ShS" secondAttribute="trailing" id="v9J-o4-Abr"/>
                                             <constraint firstItem="qO3-Mf-gi8" firstAttribute="height" secondItem="l37-yW-ShS" secondAttribute="height" id="w5S-8z-jv5"/>
+                                            <constraint firstAttribute="height" constant="382.5" id="xBB-WR-hWs"/>
                                             <constraint firstItem="gwJ-iD-Hs7" firstAttribute="width" secondItem="zgL-hJ-GxK" secondAttribute="width" id="xWa-Rq-oup"/>
                                             <constraint firstItem="AUK-JW-9ja" firstAttribute="width" secondItem="UiC-jq-hLn" secondAttribute="width" id="ypM-DA-kVr"/>
                                         </constraints>
@@ -585,6 +587,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="containerWidthLayoutConstraint" destination="WCm-Wh-2sb" id="Epz-cM-WdU"/>
+                        <outlet property="containterHeightLayoutConstraint" destination="xBB-WR-hWs" id="xni-GQ-uKe"/>
                         <outlet property="dashboardLabel" destination="QCe-pF-tlj" id="ACZ-Xc-LEJ"/>
                         <outlet property="operationLabel" destination="3tt-GI-v2L" id="flw-wf-ej2"/>
                         <outlet property="stateLabel" destination="i0g-aj-oha" id="qAJ-F7-uU2"/>

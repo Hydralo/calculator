@@ -20,8 +20,8 @@ class ViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var keyboardContainerLeadingLayoutConstraint: NSLayoutConstraint!
-    @IBOutlet weak var keyboardContainerTrailingLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerWidthLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containterHeightLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var dashboardLabel: UILabel!
     @IBOutlet weak var stateLabel: UILabel!
     @IBOutlet weak var operationLabel: UILabel!
@@ -103,6 +103,10 @@ extension ViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        let safeAreaWidth = super.view.safeAreaLayoutGuide.layoutFrame.width
+        containerWidthLayoutConstraint.constant = safeAreaWidth
+        containterHeightLayoutConstraint.constant = containerWidthLayoutConstraint.constant * 1.2
+        view.layoutIfNeeded()
         roundButtons()
     }
     

@@ -89,7 +89,7 @@ class Calculator {
         }
     }
     
-    // MARK: Arithmetic
+    // MARK: Arithmetic logic
     
     func unary() -> String {
         guard let numInDouble = Double(inputHandler.minusPlus()) else {
@@ -134,11 +134,25 @@ class Calculator {
     }
     
     func ac() -> String {
-        firstNumber = 0
-        secondNumber = 0
-        operation = CalculatorOperations.none
-        changeState(toCondition: .ready)
-        return "\(firstNumber)"
+        if condition == .secondNumberEnter {
+            if secondNumber != 0 {
+            secondNumber = 0
+            inputHandler.clearAll()
+            return "\(secondNumber)"
+            } else {
+                firstNumber = 0
+                secondNumber = 0
+                operation = CalculatorOperations.none
+                changeState(toCondition: .ready)
+                return "\(firstNumber)"
+            }
+        } else {
+            firstNumber = 0
+            secondNumber = 0
+            operation = CalculatorOperations.none
+            changeState(toCondition: .ready)
+            return "\(firstNumber)"
+        }
     }
     
     func operate(type: CalculatorOperations) -> String {
@@ -187,5 +201,9 @@ extension Calculator {
     func changeState(toCondition state: CalculatorConditions) {
         condition = state
         inputHandler.clearAll()
+    }
+    
+    func currentStatusReturn() -> (CalculatorConditions, CalculatorOperations) {
+        return (condition, operation)
     }
 }

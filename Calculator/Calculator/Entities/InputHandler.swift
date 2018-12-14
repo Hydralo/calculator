@@ -8,11 +8,15 @@
 
 import Foundation
 
+// MARK: - Constants
+
 struct InputHandler {
     private var dashboard = ""
     private var userIsPrinting = false
     private var isPositive = true
 }
+
+// MARK: - Functions
 
 extension InputHandler {
     mutating func digitAppend(_ buttonLabel: String) -> String {
@@ -53,16 +57,31 @@ extension InputHandler {
             userIsPrinting = false
         }
     }
+
+}
+
+// MARK: - Private functions
+
+extension InputHandler {
     
-    private func returnDashboardWithSign() -> String {
-        if isPositive && userIsPrinting {
-            return dashboard
-        } else if isPositive && !userIsPrinting {
-            return "0"
-        } else if !isPositive && userIsPrinting {
-            return "-" + dashboard
+    private mutating func returnDashboardWithSign() -> String {
+        if dashboard.count < 10 {
+            if isPositive && userIsPrinting {
+                return dashboard
+            } else if isPositive && !userIsPrinting {
+                return "0"
+            } else if !isPositive && userIsPrinting {
+                return "-" + dashboard
+            } else {
+                return "-0"
+            }
         } else {
-            return "-0"
+            dashboard.removeSubrange(dashboard.index(dashboard.startIndex, offsetBy: 9)...)
+            if isPositive{
+                return dashboard
+            } else {
+                return "-" + dashboard
+            }
         }
     }
 }

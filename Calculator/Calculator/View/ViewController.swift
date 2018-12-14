@@ -8,42 +8,71 @@
 
 import UIKit
 
+enum BinaryArithmeticOperation: Int {
+    case addition
+    case subtraction
+    case multiplication
+    case division
+    case equal
+}
+
 class ViewController: UIViewController {
     
     // MARK: - Outlets
     
     @IBOutlet weak var keyboardContainerLeadingLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var keyboardContainerTrailingLayoutConstraint: NSLayoutConstraint!
-    @IBOutlet weak var containerWidthLayoutConstraint: NSLayoutConstraint!
-    @IBOutlet weak var containerHeightLayoutConstraint: NSLayoutConstraint!
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var dashboardLabel: UILabel!
+    @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var operationLabel: UILabel!
+    
+    
+    @IBOutlet var digitButtonsArray: [UIButton] = []
+    @IBOutlet var binaryOperationButtonsArray: [UIButton] = []
     
     private var presenter: Presenter!
-
+    
     // MARK: - IBActions
     
     @IBAction func buttonClick(_ sender: UIButton) {
         updateLable(text: presenter.buttonClick(tag: sender.tag))
     }
     
-    // MARK: - Lifecycle
+    @IBAction func allClearButtonPressed(_ sender: UIButton) {
+    }
+    
+    @IBAction func operationButtonPressed(_ operatopnButton: UIButton) {
+        guard let operationIndex = binaryOperationButtonsArray.index(of: operatopnButton),
+            let _ = BinaryArithmeticOperation(rawValue: operationIndex) else {
+                return
+        }
+    }
+    
+}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Нахера это здесь? должно при инициализации создаваться
-        presenter = Presenter(delegate: self)
+// MARK: - Functions
+
+extension ViewController {
+    
+    func updateLable(text: String) {
+        var finalText = text
+        if text != "0.0" && text.suffix(2) == ".0" {
+            finalText = String(text.prefix(text.count-2))
+        } else if text == "0.0" {
+            finalText = "0"
+        }
+        dashboardLabel.text = finalText.replacingOccurrences(of: ".", with: ",")
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        let safeAreaWidth = super.view.safeAreaLayoutGuide.layoutFrame.width
-        containerWidthLayoutConstraint.constant = safeAreaWidth - 14
-        containerHeightLayoutConstraint.constant = containerWidthLayoutConstraint.constant * 1.2
-        view.layoutIfNeeded()
-        roundButtons()
+    func updateCurrentStatusLabels(state: CalculatorConditions, operation: CalculatorOperations) {
+        stateLabel.text = "\(state)"
+        operationLabel.text = "\(operation)"
     }
-    
-    // MARK: - Functions
+}
+
+// MARK: - Private functions
+
+extension ViewController {
     
     private func roundButtons() {
         var baseCornerRadius: CGFloat?
@@ -56,59 +85,60 @@ class ViewController: UIViewController {
             if baseCornerRadius == nil {
                 baseCornerRadius = button.frame.width / 2
             }
-            
             button.layer.cornerRadius = baseCornerRadius!
-            button.backgroundColor = UIColor(red: CGFloat((0xe12d30 & 0xFF0000) >> 16) / 255.0,
-                                             green: CGFloat((0xe12d30 & 0x00FF00) >> 8) / 255.0,
-                                             blue: CGFloat(0xe12d30 & 0x0000FF) / 255.0,
-                                             alpha: CGFloat(1.0))
         }
+    }
+}
+
+// MARK: - Lifecycle
+
+extension ViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        presenter = Presenter(viewController: self)
+        colorBinaryOperationButtons()
+        colorDigitButtons()
     }
     
-// S - слишком много задач у метода
-    func updateLable(text: String) {
-        let charactersCount = LabelController.charactersCountWithKomma(text: text)
-        switch charactersCount {
-        case 6:
-            label.font = label.font.withSize(68)
-        case 7:
-            label.font = label.font.withSize(64)
-        case 8:
-            label.font = label.font.withSize(60)
-        case _ where charactersCount >= 9:
-            label.font = label.font.withSize(56)
-        default:
-            label.font = label.font.withSize(72)
-        }
-        var finalText = text
-//        if(text != "0.0" && text.suffix(2) == ".0") {
-//            finalText = String(text.prefix(text.count-2))
-//        }
-        label.text = finalText.replacingOccurrences(of: ".", with: ",")
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        roundButtons()
     }
+    
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//
+//    }
 }
 
 // MARK: Buttons hightlighting. Implementation of PresenterDelegate protocol
 
 extension ViewController: PresenterDelegate {
-    func highlightButton(tag: Int) {
-        guard let button = view.viewWithTag(tag) as? UIButton else {
-            return
-        }
-        button.backgroundColor = UIColor(red: CGFloat((0xb10003 & 0xFF0000) >> 16) / 255.0,
-                                         green: CGFloat((0xb10003 & 0x00FF00) >> 8) / 255.0,
-                                         blue: CGFloat(0xb10003 & 0x0000FF) / 255.0,
-                                         alpha: CGFloat(1.0))
+    func highlightButton(buttonOperation: BinaryArithmeticOperation) {
+        let buttonToHightlight = binaryOperationButtonsArray[buttonOperation.rawValue]
+        buttonToHightlight.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
     }
+    
     func cancelHighlightButtons() {
-        for i in 1...19 {
-            guard let button = view.viewWithTag(i) as? UIButton else {
-                continue
-            }
-            button.backgroundColor = UIColor(red: CGFloat((0xe12d30 & 0xFF0000) >> 16) / 255.0,
-                                             green: CGFloat((0xe12d30 & 0x00FF00) >> 8) / 255.0,
-                                             blue: CGFloat(0xe12d30 & 0x0000FF) / 255.0,
-                                             alpha: CGFloat(1.0))
+        for button in binaryOperationButtonsArray {
+            button.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+        }
+    }
+}
+
+// MARK: Buttons coloring
+
+extension ViewController {
+    func colorBinaryOperationButtons()  {
+        for button in binaryOperationButtonsArray {
+            button.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+        }
+    }
+    
+    func colorDigitButtons()  {
+        for button in digitButtonsArray {
+            button.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         }
     }
 }

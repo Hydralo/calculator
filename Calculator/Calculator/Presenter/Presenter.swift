@@ -8,31 +8,65 @@
 
 import Foundation
 
-// Презентер не знает про view. Нужно добавить управление.
+// MARK: - Constants & initialization
 
 class Presenter {
     private var interactor: Interactor!
-    weak var delegate: PresenterDelegate?
+    private weak var viewController: ViewController?
     
-    init(delegate: PresenterDelegate) {
-        interactor = Interactor(delegate: self)
-        self.delegate = delegate
-    }
-    
-    func buttonClick(tag: Int) -> String {
-        return interactor.buttonClick(tag: tag)
+    init(viewController: ViewController) {
+        interactor = Interactor()
+        self.viewController = viewController
     }
 }
 
-// MARK: - Highlight buttons
-// TODO: Убрать и переделать, чтобы подсветка была связана с состоянием калькулятора
+// MARK: - Functions
 
-extension Presenter: InteractorDelegate {
-    func cancelHighlightButtons() {
-        delegate?.cancelHighlightButtons()
+extension Presenter {
+    func buttonClick(tag: Int) -> String {
+        let dashboardValue = interactor.buttonClick(tag: tag)
+        let calculatorState = interactor.getState()
+        let state = calculatorState.0
+        let operation = calculatorState.1
+        viewController?.updateCurrentStatusLabels(state: state, operation: operation)
+        highlighting(state: state, operation: operation)
+        return dashboardValue
+    }
+}
+
+// MARK: - Private functions
+
+private extension Presenter {
+    func highlighting(state: CalculatorConditions, operation: CalculatorOperations) {
+        if state == .ready || state == .equalResult {
+            cancelHightlightingButtons()
+        } else {
+            switch operation {
+            case .addition:
+                cancelHightlightingButtons()
+                highlightButton(binaryOperation: .addition)
+            case .subtraction:
+                cancelHightlightingButtons()
+                highlightButton(binaryOperation: .subtraction)
+            case .multiplication:
+                cancelHightlightingButtons()
+                highlightButton(binaryOperation: .multiplication)
+            case .division:
+                cancelHightlightingButtons()
+                highlightButton(binaryOperation: .division)
+            case .none:
+                cancelHightlightingButtons()
+            }
+        }
     }
     
-    func highlightButton(tag: Int) {
-        delegate?.highlightButton(tag: tag)
+    
+    func highlightButton(binaryOperation: BinaryArithmeticOperation) {
+        viewController?.highlightButton(buttonOperation: binaryOperation)
     }
+    
+    func cancelHightlightingButtons() {
+        viewController!.cancelHighlightButtons()
+    }
+    
 }

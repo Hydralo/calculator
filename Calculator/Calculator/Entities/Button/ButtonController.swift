@@ -9,16 +9,10 @@
 import Foundation
 
 class ButtonController {
-    private var calculator: Calculator
-    weak var delegate: ButtonControllerDelegate?
+    var calculator = Calculator()
     private var inputHandler = InputHandler()
     
     init() {
-        calculator = Calculator()
-    }
-    
-    func setCallback(delegate: ButtonControllerDelegate) {
-        self.delegate = delegate
     }
     
     func operate(tag: Int) -> String {
@@ -36,24 +30,14 @@ class ButtonController {
             _ = inputHandler.dotAppend()
             return calculator.insertKomma()
         case .ac:
-            delegate?.cancelHighlightButtons()
-            inputHandler.clearAll()
             return calculator.ac()
         case .addition:
-            delegate?.cancelHighlightButtons()
-            delegate?.highlightButton(tag: button.tag)
             return calculator.operate(type: .addition)
         case .subtraction:
-            delegate?.cancelHighlightButtons()
-            delegate?.highlightButton(tag: button.tag)
             return calculator.operate(type: .subtraction)
         case .multiplication:
-            delegate?.cancelHighlightButtons()
-            delegate?.highlightButton(tag: button.tag)
             return calculator.operate(type: .multiplication)
         case .division:
-            delegate?.cancelHighlightButtons()
-            delegate?.highlightButton(tag: button.tag)
             return calculator.operate(type: .division)
         case .equal:
             return calculator.equal()
@@ -62,5 +46,11 @@ class ButtonController {
         case .procent:
             return calculator.procent()
         }
+    }
+}
+
+extension ButtonController {
+    func currentCalculatorState() -> (CalculatorConditions, CalculatorOperations) {
+        return calculator.currentStatusReturn()
     }
 }

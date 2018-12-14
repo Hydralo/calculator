@@ -9,12 +9,10 @@
 import Foundation
 
 class ButtonController {
-    private var calculator: Calculator
-    weak var delegate: ButtonControllerDelegate?
+    var calculator = Calculator()
     private var inputHandler = InputHandler()
     
     init() {
-        calculator = Calculator()
     }
     
     func operate(tag: Int) -> String {
@@ -49,8 +47,10 @@ class ButtonController {
             return calculator.procent()
         }
     }
-    
+}
+
+extension ButtonController {
     func currentCalculatorState() -> (CalculatorConditions, CalculatorOperations) {
-        return calculator.currentState()
+        return calculator.currentStatusReturn()
     }
 }

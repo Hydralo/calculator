@@ -11,15 +11,21 @@ import Foundation
 class Interactor {
     var buttonController: ButtonController
     
+    
     init() {
         buttonController = ButtonController()
     }
     
     func buttonClick(tag: Int) -> String {
-        return buttonController.operate(tag: tag)
+        let dashboardValue = buttonController.operate(tag: tag)
+        return dashboardValue
     }
     
-    func currentCalculatorState() -> (CalculatorConditions, CalculatorOperations) {
-        return buttonController.currentCalculatorState()
+    func getState() -> (CalculatorConditions, CalculatorOperations) {
+        let currentCalculatorState = buttonController.currentCalculatorState()
+        let state = currentCalculatorState.0
+        let operation = currentCalculatorState.1
+        return (state, operation)
     }
+    
 }

@@ -9,6 +9,6 @@
 import Foundation
 
 protocol PresenterDelegate: class {
-    func highlightButton(binaryOperationType: BinaryArithmeticOperation)
+    func highlightButton(buttonOperation: BinaryArithmeticOperation)
     func cancelHighlightButtons()
 }

@@ -22,12 +22,13 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var keyboardContainerLeadingLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var keyboardContainerTrailingLayoutConstraint: NSLayoutConstraint!
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var dashboardLabel: UILabel!
+    @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var operationLabel: UILabel!
     
-    @IBOutlet var digitButtons: [UIButton] = []
-    @IBOutlet var binaryOperationButtons: [UIButton] = []
     
-    @IBOutlet var allButtons: [UIButton] = []
+    @IBOutlet var digitButtonsArray: [UIButton] = []
+    @IBOutlet var binaryOperationButtonsArray: [UIButton] = []
     
     private var presenter: Presenter!
     
@@ -37,24 +38,14 @@ class ViewController: UIViewController {
         updateLable(text: presenter.buttonClick(tag: sender.tag))
     }
     
-    
-    @IBAction func digitButtonPressed(_ digitButton: UIButton) {
-        guard let digit = digitButtons.index(of: digitButton) else {
-            return
-        }
-    }
-    
     @IBAction func allClearButtonPressed(_ sender: UIButton) {
-        presenter.highlightingCheck()
     }
     
     @IBAction func operationButtonPressed(_ operatopnButton: UIButton) {
-        guard let operationIndex = binaryOperationButtons.index(of: operatopnButton),
-            let operation = BinaryArithmeticOperation(rawValue: operationIndex) else {
+        guard let operationIndex = binaryOperationButtonsArray.index(of: operatopnButton),
+            let _ = BinaryArithmeticOperation(rawValue: operationIndex) else {
                 return
         }
-        presenter.cancelHightlightingButtons()
-        presenter.highlightButton(binaryOperation: operation)
     }
     
 }
@@ -70,7 +61,12 @@ extension ViewController {
         } else if text == "0.0" {
             finalText = "0"
         }
-        label.text = finalText.replacingOccurrences(of: ".", with: ",")
+        dashboardLabel.text = finalText.replacingOccurrences(of: ".", with: ",")
+    }
+    
+    func updateCurrentStatusLabels(state: CalculatorConditions, operation: CalculatorOperations) {
+        stateLabel.text = "\(state)"
+        operationLabel.text = "\(operation)"
     }
 }
 
@@ -90,7 +86,6 @@ extension ViewController {
                 baseCornerRadius = button.frame.width / 2
             }
             button.layer.cornerRadius = baseCornerRadius!
-            button.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         }
     }
 }
@@ -101,29 +96,33 @@ extension ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Нахера это здесь? должно при инициализации создаваться
         presenter = Presenter(viewController: self)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        roundButtons()
         colorBinaryOperationButtons()
         colorDigitButtons()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        roundButtons()
+    }
+    
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//
+//    }
 }
 
 // MARK: Buttons hightlighting. Implementation of PresenterDelegate protocol
 
 extension ViewController: PresenterDelegate {
-    func highlightButton(binaryOperationType: BinaryArithmeticOperation) {
-        let buttonToHightlight = binaryOperationButtons[binaryOperationType.rawValue]
+    func highlightButton(buttonOperation: BinaryArithmeticOperation) {
+        let buttonToHightlight = binaryOperationButtonsArray[buttonOperation.rawValue]
         buttonToHightlight.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
     }
     
     func cancelHighlightButtons() {
-        for button in binaryOperationButtons {
-            button.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        for button in binaryOperationButtonsArray {
+            button.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
         }
     }
 }
@@ -132,13 +131,13 @@ extension ViewController: PresenterDelegate {
 
 extension ViewController {
     func colorBinaryOperationButtons()  {
-        for button in binaryOperationButtons {
-            button.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        for button in binaryOperationButtonsArray {
+            button.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
         }
     }
     
     func colorDigitButtons()  {
-        for button in digitButtons {
+        for button in digitButtonsArray {
             button.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         }
     }
